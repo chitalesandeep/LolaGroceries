@@ -1,0 +1,58 @@
+<h3>Shipping Details</h3>
+<div class="row">
+  <div class="col-md-6">
+  <form [formGroup]="shippingForm" (ngSubmit)="placeOrder()">
+    <div class="form-group">
+      <label for="title">Customer Name</label>
+      <input type="text" #Name  name="Name" class="form-control" formControlName="Name" >
+      <div *ngIf="Name.invalid && (Name.dirty || Name.touched)"
+        class="alert alert-danger">
+        <div *ngIf="Name.errors.required">
+          Name is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+        <label for="price">Address</label>
+        <div class="input-group mb-3">   
+          <input type="text" #Address name="Address" formControlName="Address" class="form-control">
+        </div>  
+        <div class="alert alert-danger" *ngIf="Address.invalid && (Address.touched || Address.dirty)">
+            <div *ngIf="Address.errors.required">
+              Please enter Address.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label for="title">City</label>
+      <input type="text" #City  name="City" class="form-control" formControlName="City" >
+      <div *ngIf="City.invalid && (City.dirty || City.touched)"
+        class="alert alert-danger">
+        <div *ngIf="City.errors.required">
+          City is required.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="shippingForm.invalid">Place Order</button>
+  </form>
+  
+</div>
+  <div class="col-md-6">
+    <div *ngIf="cart" class="card">
+      <div class="card-header"> <h6>Order Summery</h6><br>
+        total {{ cart.TotalItemsCount }} items in your shopping cart
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let items of cart.items"> {{  items.title }} * {{  items.quantity }} : <div class="float-right">{{  items.TotalPrice | currency:'USD':true }} </div></li>
+        </ul>
+      </div>
+      <div class="card-footer">
+         <h6> Total Pay : <div class="float-right"> {{ cart.cartTotalPrice | currency:'USD':true }} </div></h6>
+      </div>
+  </div>
+  </div>
+</div>
